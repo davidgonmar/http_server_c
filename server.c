@@ -1,3 +1,4 @@
+#include "logger.h"
 #include <arpa/inet.h>
 #include <errno.h>
 #include <netinet/in.h>
@@ -20,7 +21,7 @@ void handle_client(int client) {
   if (bytes_received <= 0)
     goto _close;
 
-  printf("%s\n", buffer);
+  LOG_INFO("%s\n", "Incoming request");
 
   char *reply = "HTTP/1.1 200 OK\n"
                 "\n"
@@ -59,7 +60,7 @@ int main() {
     exit(1);
   }
 
-  printf("Server running at port %d\n\n", PORT);
+  LOG_INFO("Server running at port %d\n\n", PORT);
 
   while (1) {
     struct sockaddr_in client_addr;
